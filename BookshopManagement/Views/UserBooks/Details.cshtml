@@ -1,0 +1,44 @@
+﻿@model BookshopManagement.Models.Book
+
+@{
+    ViewData["Title"] = "Book Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";  // Use your user layout here
+}
+
+<h2>@Model.Title</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid rounded" />
+        }
+        else
+        {
+            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 300px;">
+                No Image Available
+            </div>
+        }
+    </div>
+
+    <div class="col-md-8">
+        <h4>Author: @Model.Author</h4>
+        <h5>Category: @Model.Category?.Name ?? "No Category"</h5>
+        <h5>Price: @Model.Price.ToString("C")</h5>
+        <p><strong>Description:</strong> @Model.Description</p>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="mt-3">
+                <input type="hidden" name="bookId" value="@Model.BookId" />
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+            </form>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login" class="btn btn-secondary mt-3">Cart</a>
+        }
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-link mt-4">Back to Books</a>

@@ -1,0 +1,46 @@
+﻿@model BookshopManagement.Models.Category
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container mt-4">
+    <h2>Category Details</h2>
+    <div class="card shadow-sm p-3 mb-4">
+        <h4>@Model.Name</h4>
+        <p><strong>Category ID:</strong> @Model.CategoryId</p>
+    </div>
+
+    <h3>Products in this category:</h3>
+    @if (Model.Books != null && Model.Books.Any())
+    {
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>  <!-- example additional info -->
+                    <th>Price</th>   <!-- example additional info -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model.Books)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>  <!-- Change as per your model -->
+                        <td>@book.Price.ToString("C")</td>  <!-- Format as currency -->
+                        <td>
+                            <a asp-controller="Book" asp-action="Details" asp-route-id="@book.BookId" class="btn btn-sm btn-primary">View</a>
+                            <a asp-controller="Book" asp-action="Edit" asp-route-id="@book.BookId" class="btn btn-sm btn-warning">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted mt-3">No products found in this category.</p>
+    }
+
+    <a asp-action="Index" class="btn btn-primary mt-3">Back to Category List</a>
+</div>

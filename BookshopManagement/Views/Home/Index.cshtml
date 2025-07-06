@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BookshopManagement.Models.Book>
+@{
+    ViewData["Title"] = ViewData["Title"] ?? "Bookshop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center my-5">
+    <h1 class="display-4 fw-bold text-primary">@ViewData["Title"]</h1>
+    <p class="lead">Discover a curated collection of books across various categories!</p>
+</div>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @foreach (var book in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-lg border-0 position-relative book-card">
+                    @if (!string.IsNullOrEmpty(book.ImageUrl))
+                    {
+                        <img src="@book.ImageUrl" class="card-img-top" alt="@book.Title" style="height: 240px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="bg-light text-muted d-flex align-items-center justify-content-center" style="height: 240px;">
+                            No Image
+                        </div>
+                    }
+
+                    <div class="position-absolute top-0 start-0 m-2">
+                        <span class="badge bg-primary">@book.Category?.Name ?? "Uncategorized"</span>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate fw-semibold">@book.Title</h5>
+                        <p class="card-text mb-1"><small class="text-muted">Author: @book.Author</small></p>
+                        <p class="card-text fw-bold text-success fs-5 mb-3">@book.Price.ToString("C")</p>
+
+                        <div class="mt-auto">
+                            <a asp-controller="UserBooks" asp-action="Details" asp-route-id="@book.BookId" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-info-circle"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
