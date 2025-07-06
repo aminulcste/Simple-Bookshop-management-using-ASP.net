@@ -89,8 +89,8 @@ A full-stack ASP.NET Core MVC application for managing a bookshop. The system su
 ## Author
 
 Aminul Islam  
-Email: [Your Email]  
-GitHub: [Your GitHub Link]  
+Email: aminulashik19@gmail.com
+GitHub: https://github.com/aminulcste
 
 ---
 
